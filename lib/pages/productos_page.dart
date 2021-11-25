@@ -60,7 +60,7 @@ class _ProductosState extends State<ProductosPage>{
                         _productos![index].precio.toString() +
                         '\n' +
                         'Cantidad: '
-                        + _productos![index].precio.toString()
+                        + _productos![index].existencia.toString()
                     ),
                     leading: CircleAvatar(
                         child: Text(_productos![index].codigo.toString())
@@ -318,7 +318,7 @@ class ProductoCreateForm extends StatelessWidget {
                   labelText: 'Codigo',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else {
                     for (var pr in ProductoService.productos) {
@@ -338,7 +338,7 @@ class ProductoCreateForm extends StatelessWidget {
                   labelText: 'Nombre',
                 ),
                 validator: (value) {
-                  if (value == null){
+                  if (value!.isEmpty){
                     return 'Ingrese un valor';
                   }else{
                     for( var pr in  ProductoService.productos){
@@ -358,7 +358,7 @@ class ProductoCreateForm extends StatelessWidget {
                   labelText: 'Precio',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else if(num.tryParse(value)! <= 0 ) {
                     return 'Ingrese un precio válido';
@@ -374,7 +374,7 @@ class ProductoCreateForm extends StatelessWidget {
                   labelText: 'Cantidad',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese una cantidad válido';
@@ -422,7 +422,7 @@ class ProductoEditForm extends StatelessWidget {
                   labelText: 'Codigo',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else {
                     for (var pr in ProductoService.productos) {
@@ -442,7 +442,7 @@ class ProductoEditForm extends StatelessWidget {
                   labelText: 'Nombre',
                 ),
                 validator: (value) {
-                  if (value == null){
+                  if (value!.isEmpty){
                     return 'Ingrese un valor';
                   }else{
                     for( var pr in  ProductoService.productos){
@@ -462,7 +462,7 @@ class ProductoEditForm extends StatelessWidget {
                   labelText: 'Precio',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else if(num.tryParse(value)! <= 0 ) {
                     return 'Ingrese un precio válido';
@@ -478,7 +478,7 @@ class ProductoEditForm extends StatelessWidget {
                   labelText: 'Cantidad',
                 ),
                 validator: (value) {
-                  if (value == null) {
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
                   } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese una cantidad válido';
