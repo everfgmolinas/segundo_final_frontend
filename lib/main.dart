@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:segundo_final_frontend/pages/clientes_page.dart';
 import 'package:segundo_final_frontend/pages/mainpage.dart';
 import 'package:segundo_final_frontend/pages/productos_page.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => const MainPage(),
         "/productos": (context) => const ProductosPage(),
+        "/clientes": (context) => const ClientesPage(),
       },
     );
   }

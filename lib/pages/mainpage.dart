@@ -28,6 +28,14 @@ class MainPage extends StatelessWidget {
                 Navigator.pushNamed(context, "/productos");
               },
             ),
+            ListTile(
+              title: const Text('Clientes'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pushNamed(context, "/clientes");
+              },
+            )
           ],
         ),
       ),
