@@ -4,7 +4,7 @@ import 'package:segundo_final_frontend/objects/producto.dart';
 import 'package:segundo_final_frontend/objects/venta.dart';
 
 class VentasService {
-  List<Venta> ventas = [
+  static List<Venta> ventas = [
     Venta(
         id: 1,
         fecha: DateTime(2019, 01, 16, 14, 15),
@@ -47,23 +47,23 @@ class VentasService {
         total: 10000)
   ];
 
-  void getVentas() {
+  static void getVentas() {
     return ventas.sort((a, b) => a.id.compareTo(b.id));
   }
 
-  void agregarVenta(Venta venta) {
+  static void agregarVenta(Venta venta) {
     ventas.add(venta);
   }
 
-  void eliminarVenta(int id) {
+  static void eliminarVenta(int id) {
     ventas.removeWhere((element) => element.id == id);
   }
 
-  List<Venta> filtrarCliente(Cliente cliente) {
+  static List<Venta> filtrarCliente(Cliente cliente) {
     return ventas.where((venta) => venta.cliente == cliente).toList();
   }
 
-  List<Venta> filtrarProducto(Producto producto) {
+  static List<Venta> filtrarProducto(Producto producto) {
     List<Venta> ventasProductos = [];
     for (Venta venta in ventas) {
       for (DetalleVenta detalle in venta.detalles) {
@@ -73,7 +73,7 @@ class VentasService {
     return ventasProductos;
   }
 
-  List<Venta> filtrarFecha(DateTime fecha1, DateTime fecha2) {
+  static List<Venta> filtrarFecha(DateTime fecha1, DateTime fecha2) {
     return ventas
         .where((venta) =>
             venta.fecha.isAfter(fecha1) && venta.fecha.isBefore(fecha2))

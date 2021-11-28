@@ -3,6 +3,8 @@ import 'package:segundo_final_frontend/pages/clientes_page.dart';
 import 'package:segundo_final_frontend/pages/mainpage.dart';
 import 'package:segundo_final_frontend/pages/productos_page.dart';
 
+import 'pages/ventas_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => const MainPage(),
         "/productos": (context) => const ProductosPage(),
         "/clientes": (context) => const ClientesPage(),
+        "/ventas": (context) => const VentasPage(),
       },
     );
   }

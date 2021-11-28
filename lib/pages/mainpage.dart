@@ -35,6 +35,14 @@ class MainPage extends StatelessWidget {
                 // ...
                 Navigator.pushNamed(context, "/clientes");
               },
+            ),
+            ListTile(
+              title: const Text('Ventas'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pushNamed(context, "/ventas");
+              },
             )
           ],
         ),
@@ -42,7 +50,6 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Bienvenid@"),
       ),
-
     );
   }
 }
