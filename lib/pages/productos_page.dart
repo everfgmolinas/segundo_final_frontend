@@ -10,8 +10,7 @@ class ProductosPage extends StatefulWidget {
   _ProductosState createState() => _ProductosState();
 }
 
-class _ProductosState extends State<ProductosPage>{
-
+class _ProductosState extends State<ProductosPage> {
   ProductoService _servicioProductos = new ProductoService();
   final _formKey = GlobalKey<FormState>();
   final _formeditKey = GlobalKey<FormState>();
@@ -46,73 +45,70 @@ class _ProductosState extends State<ProductosPage>{
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: _productos!.length,
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   return ListTile(
-                    onLongPress: (){
+                    onLongPress: () {
                       _borrarProducto(context, _productos![index]);
                     },
-                    onTap: (){
+                    onTap: () {
                       _alertDialogEditarProducto(context, _productos![index]);
                     },
-                    title: Text( _productos![index].nombre!),
-                    subtitle: Text(
-                        'Precio: ' +
+                    title: Text(_productos![index].nombre!),
+                    subtitle: Text('Precio: ' +
                         _productos![index].precio.toString() +
                         '\n' +
-                        'Cantidad: '
-                        + _productos![index].existencia.toString()
-                    ),
+                        'Cantidad: ' +
+                        _productos![index].existencia.toString()),
                     leading: CircleAvatar(
-                        child: Text(_productos![index].codigo.toString())
-                    ),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                        child: Text(_productos![index].codigo.toString())),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   );
                 }),
             ElevatedButton(
-                child: Text("Agregar"),
+                child: const Text("Agregar"),
                 onPressed: () {
                   _alertDialogAgregarProducto(context);
-                }
-            )
-          ],
-        )
-    );
-  }
-
-  // Funcion en cargada de mostrar un mensaje de confirmacion y boorrar
-  _borrarProducto(context,Producto producto){
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text("Elminiar producto"),
-          content: const Text("Estas seguro de elminiar?"),
-          actions: [
-            FlatButton(
-                onPressed: (){
-                  Navigator.pop(context);
-                }, child: const Text("Cancelar")),
-            FlatButton(
-                onPressed: (){
-                  setState(() {
-                    _servicioProductos.deleteProducto(producto);
-                    _productos = _servicioProductos.getProductos();
-                  });
-                  Navigator.pop(context);
-                }, child:
-            const Text(
-              "Borrar",
-              style: TextStyle(color: Colors.red),)),
+                })
           ],
         ));
   }
 
-  _alertDialogAgregarProducto(context){
+  // Funcion en cargada de mostrar un mensaje de confirmacion y boorrar
+  _borrarProducto(context, Producto producto) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text("Elminiar producto"),
+              content: const Text("Estas seguro de eliminar?"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Cancelar")),
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _servicioProductos.deleteProducto(producto);
+                        _productos = _servicioProductos.getProductos();
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "Borrar",
+                      style: TextStyle(color: Colors.red),
+                    )),
+              ],
+            ));
+  }
+
+  _alertDialogAgregarProducto(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             scrollable: true,
-            title: Text('Agregar Producto'),
+            title: const Text('Agregar Producto'),
             content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -126,39 +122,40 @@ class _ProductosState extends State<ProductosPage>{
                       controladorExistencia: controladorExistencia,
                     ),
                     ElevatedButton(
-                        child: Text("Agregar"),
+                        child: const Text("Agregar"),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            _servicioProductos.setProducto(
-                                new Producto(
-                                    codigo: int.tryParse(controladorId.value.text),
-                                    nombre: controladorName.value.text,
-                                    precio: int.tryParse(controladorPrecio.value.text),
-                                    existencia: int.tryParse(controladorExistencia.value.text))
-                            );
+                            _servicioProductos.setProducto(Producto(
+                                codigo: int.tryParse(controladorId.value.text),
+                                nombre: controladorName.value.text,
+                                precio:
+                                    int.tryParse(controladorPrecio.value.text),
+                                existencia: int.tryParse(
+                                    controladorExistencia.value.text)));
                             setState(() {});
                           }
-                        }
-                    )
+                        })
                   ],
-                )
-            ),
+                )),
           );
         });
   }
 
-  _alertDialogEditarProducto(context,Producto producto){
+  _alertDialogEditarProducto(context, Producto producto) {
     controladorEditId = TextEditingController(text: producto.codigo.toString());
-    controladorEditName = TextEditingController(text: producto.nombre.toString());
-    controladorEditPrecio = TextEditingController(text: producto.precio.toString());
-    controladorEditExistencia = TextEditingController(text: producto.existencia.toString());
+    controladorEditName =
+        TextEditingController(text: producto.nombre.toString());
+    controladorEditPrecio =
+        TextEditingController(text: producto.precio.toString());
+    controladorEditExistencia =
+        TextEditingController(text: producto.existencia.toString());
 
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             scrollable: true,
-            title: Text('Agregar Producto'),
+            title: const Text('Agregar Producto'),
             content: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -170,27 +167,26 @@ class _ProductosState extends State<ProductosPage>{
                         controladorName: controladorEditName,
                         controladorPrecio: controladorEditPrecio,
                         controladorExistencia: controladorEditExistencia,
-                        producto: producto
-                    ),
+                        producto: producto),
                     ElevatedButton(
-                        child: Text("Agregar"),
+                        child: const Text("Guardar"),
                         onPressed: () {
                           if (_formeditKey.currentState!.validate()) {
-                            producto.codigo = int.tryParse(controladorEditId.value.text);
+                            producto.codigo =
+                                int.tryParse(controladorEditId.value.text);
                             producto.nombre = controladorEditName.value.text;
-                            producto.precio = int.tryParse(controladorEditPrecio.value.text);
-                            producto.existencia = int.tryParse(controladorEditExistencia.value.text);
-                            _servicioProductos.setProducto(
-                                producto
-                            );
+                            producto.precio =
+                                int.tryParse(controladorEditPrecio.value.text);
+                            producto.existencia = int.tryParse(
+                                controladorEditExistencia.value.text);
+                            _servicioProductos.setProducto(producto);
                             _productos = _servicioProductos.getProductos();
                             setState(() {});
+                            Navigator.pop(context);
                           }
-                        }
-                    )
+                        })
                   ],
-                )
-            ),
+                )),
           );
         });
   }
@@ -204,17 +200,16 @@ class _ProductosState extends State<ProductosPage>{
           labelText: 'Codigo',
         ),
         validator: (value) {
-          if (value!.isEmpty ) {
+          if (value!.isEmpty) {
             return 'Ingrese un valor';
           } else {
             for (var pr in _productos!) {
-              if (pr.codigo == num.tryParse(value) ) {
+              if (pr.codigo == num.tryParse(value)) {
                 return 'Codigo ya existe';
               }
             }
           }
-        }
-    );
+        });
   }
 
   Widget _nombreImput() {
@@ -226,17 +221,16 @@ class _ProductosState extends State<ProductosPage>{
           labelText: 'Nombre',
         ),
         validator: (value) {
-          if (value!.isEmpty){
+          if (value!.isEmpty) {
             return 'Ingrese un valor';
-          }else{
-            for( var pr in _productos!){
-              if(pr.nombre == value){
+          } else {
+            for (var pr in _productos!) {
+              if (pr.nombre == value) {
                 return 'Nombre ya existe';
               }
             }
           }
-        }
-    );
+        });
   }
 
   Widget _precioImput() {
@@ -250,11 +244,10 @@ class _ProductosState extends State<ProductosPage>{
         validator: (value) {
           if (num.tryParse(value!) == null) {
             return 'Ingrese un valor';
-          } else if(num.tryParse(value)! <= 0 ) {
+          } else if (num.tryParse(value)! <= 0) {
             return 'Ingrese un precio válido';
           }
-        }
-    );
+        });
   }
 
   Widget _existenciaImput() {
@@ -271,8 +264,7 @@ class _ProductosState extends State<ProductosPage>{
           } else if (num.tryParse(value)! <= 0) {
             return 'Ingrese una cantidad válido';
           }
-        }
-    );
+        });
   }
 
   Widget _agregarProducto() {
@@ -289,18 +281,21 @@ class _ProductosState extends State<ProductosPage>{
       child: Text('Agregar'),
     );
   }
-
 }
 
 class ProductoCreateForm extends StatelessWidget {
-
   final GlobalKey<FormState> formKey;
   final TextEditingController controladorId;
   final TextEditingController controladorName;
   final TextEditingController controladorPrecio;
   final TextEditingController controladorExistencia;
   const ProductoCreateForm(
-      {Key? key, required this.formKey, required this.controladorId, required this.controladorName, required this.controladorPrecio, required this.controladorExistencia})
+      {Key? key,
+      required this.formKey,
+      required this.controladorId,
+      required this.controladorName,
+      required this.controladorPrecio,
+      required this.controladorExistencia})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -322,13 +317,12 @@ class ProductoCreateForm extends StatelessWidget {
                     return 'Ingrese un valor';
                   } else {
                     for (var pr in ProductoService.productos) {
-                      if (pr.codigo == num.tryParse(value) ) {
+                      if (pr.codigo == num.tryParse(value)) {
                         return 'Codigo ya existe';
                       }
                     }
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorName,
                 keyboardType: TextInputType.text,
@@ -338,17 +332,16 @@ class ProductoCreateForm extends StatelessWidget {
                   labelText: 'Nombre',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty){
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
-                  }else{
-                    for( var pr in  ProductoService.productos){
-                      if(pr.nombre == value){
+                  } else {
+                    for (var pr in ProductoService.productos) {
+                      if (pr.nombre == value) {
                         return 'Nombre ya existe';
                       }
                     }
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorPrecio,
                 keyboardType: TextInputType.phone,
@@ -360,11 +353,10 @@ class ProductoCreateForm extends StatelessWidget {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Ingrese un valor';
-                  } else if(num.tryParse(value)! <= 0 ) {
+                  } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese un precio válido';
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorExistencia,
                 keyboardType: TextInputType.phone,
@@ -379,16 +371,13 @@ class ProductoCreateForm extends StatelessWidget {
                   } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese una cantidad válido';
                   }
-                }
-            ),
+                }),
           ],
-        )
-    );
+        ));
   }
 }
 
 class ProductoEditForm extends StatelessWidget {
-
   final GlobalKey<FormState> formEditKey;
   final TextEditingController controladorId;
   final TextEditingController controladorName;
@@ -397,14 +386,12 @@ class ProductoEditForm extends StatelessWidget {
   final Producto producto;
   const ProductoEditForm(
       {Key? key,
-        required this.formEditKey,
-        required this.controladorId,
-        required this.controladorName,
-        required this.controladorPrecio,
-        required this.controladorExistencia,
-        required this.producto
-      }
-      )
+      required this.formEditKey,
+      required this.controladorId,
+      required this.controladorName,
+      required this.controladorPrecio,
+      required this.controladorExistencia,
+      required this.producto})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -426,13 +413,12 @@ class ProductoEditForm extends StatelessWidget {
                     return 'Ingrese un valor';
                   } else {
                     for (var pr in ProductoService.productos) {
-                      if (pr.codigo == num.tryParse(value) && pr!=producto) {
+                      if (pr.codigo == num.tryParse(value) && pr != producto) {
                         return 'Codigo ya existe';
                       }
                     }
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorName,
                 keyboardType: TextInputType.text,
@@ -442,17 +428,16 @@ class ProductoEditForm extends StatelessWidget {
                   labelText: 'Nombre',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty){
+                  if (value!.isEmpty) {
                     return 'Ingrese un valor';
-                  }else{
-                    for( var pr in  ProductoService.productos){
-                      if(pr.nombre == value && pr!=producto){
+                  } else {
+                    for (var pr in ProductoService.productos) {
+                      if (pr.nombre == value && pr != producto) {
                         return 'Nombre ya existe';
                       }
                     }
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorPrecio,
                 keyboardType: TextInputType.phone,
@@ -464,11 +449,10 @@ class ProductoEditForm extends StatelessWidget {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Ingrese un valor';
-                  } else if(num.tryParse(value)! <= 0 ) {
+                  } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese un precio válido';
                   }
-                }
-            ),
+                }),
             TextFormField(
                 controller: controladorExistencia,
                 keyboardType: TextInputType.phone,
@@ -483,10 +467,8 @@ class ProductoEditForm extends StatelessWidget {
                   } else if (num.tryParse(value)! <= 0) {
                     return 'Ingrese una cantidad válido';
                   }
-                }
-            ),
+                }),
           ],
-        )
-    );
+        ));
   }
 }
