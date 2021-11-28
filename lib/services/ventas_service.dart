@@ -47,6 +47,10 @@ class VentasService {
         total: 10000)
   ];
 
+  void getVentas() {
+    return ventas.sort((a, b) => a.id.compareTo(b.id));
+  }
+
   void agregarVenta(Venta venta) {
     ventas.add(venta);
   }
