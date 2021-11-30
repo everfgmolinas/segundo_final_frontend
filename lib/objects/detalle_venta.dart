@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:segundo_final_frontend/objects/producto.dart';
 
 class DetalleVenta {
@@ -75,3 +76,7 @@ class DetalleVenta {
         totalDetalle.hashCode;
   }
 }
+
+final detallesProvider = StateProvider<List<DetalleVenta>>((ref) {
+  return [];
+});

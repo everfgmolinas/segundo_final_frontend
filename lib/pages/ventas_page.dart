@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:segundo_final_frontend/objects/detalle_venta.dart';
 import 'package:segundo_final_frontend/objects/producto.dart';
 import 'package:segundo_final_frontend/services/productos_service.dart';
@@ -24,7 +25,7 @@ class VentasPage extends StatelessWidget {
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CompraPage(detalles: detalles))),
+                        builder: (context) => const CompraPage())),
                 icon: const Icon(Icons.shopping_cart))
           ],
         ),
@@ -113,20 +114,25 @@ class GridItem extends StatelessWidget {
           key: _formKey,
         ),
         actions: [
-          TextButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  detalles.add(DetalleVenta(
-                      id: Random().nextInt(100000),
-                      producto: producto,
-                      cantidad: int.parse(controladorCantidad.value.text),
-                      totalDetalle: int.parse(controladorCantidad.value.text) *
-                          (producto.precio ?? 0)));
-                  print(detalles);
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text("Agregar a carrito!"))
+          Consumer(
+            builder: (_, ref, __) {
+              return TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ref.watch(detallesProvider).add(DetalleVenta(
+                          id: Random().nextInt(100000),
+                          producto: producto,
+                          cantidad: int.parse(controladorCantidad.value.text),
+                          totalDetalle:
+                              int.parse(controladorCantidad.value.text) *
+                                  (producto.precio ?? 0)));
+                      print(detalles);
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text("Agregar a carrito!"));
+            },
+          )
         ],
       ),
     );

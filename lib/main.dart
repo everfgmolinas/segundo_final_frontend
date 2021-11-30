@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:segundo_final_frontend/pages/clientes_page.dart';
 import 'package:segundo_final_frontend/pages/mainpage.dart';
 import 'package:segundo_final_frontend/pages/productos_page.dart';
@@ -6,7 +7,7 @@ import 'package:segundo_final_frontend/pages/productos_page.dart';
 import 'pages/ventas_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
