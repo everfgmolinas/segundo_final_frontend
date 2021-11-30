@@ -47,8 +47,9 @@ class VentasService {
         total: 10000)
   ];
 
-  static void getVentas() {
-    return ventas.sort((a, b) => a.id.compareTo(b.id));
+  static List<Venta> getVentas() {
+    ventas.sort((a, b) => a.id.compareTo(b.id));
+    return ventas;
   }
 
   static void agregarVenta(Venta venta) {
