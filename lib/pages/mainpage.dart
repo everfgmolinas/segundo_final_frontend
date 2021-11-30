@@ -43,6 +43,14 @@ class MainPage extends StatelessWidget {
                 // ...
                 Navigator.pushNamed(context, "/ventas");
               },
+            ),
+            ListTile(
+              title: const Text('Detalles Venta'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+                Navigator.pushNamed(context, "/detallesVenta");
+              },
             )
           ],
         ),
