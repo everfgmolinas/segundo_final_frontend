@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:segundo_final_frontend/pages/clientes_page.dart';
 import 'package:segundo_final_frontend/pages/mainpage.dart';
 import 'package:segundo_final_frontend/pages/productos_page.dart';
+import 'package:segundo_final_frontend/pages/ventas_detalladas.dart';
 
 import 'pages/ventas_page.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/productos": (context) => const ProductosPage(),
         "/clientes": (context) => const ClientesPage(),
         "/ventas": (context) => const VentasPage(),
+        "/detallesVenta": (context) => const VentasDetalles(),
       },
     );
   }
