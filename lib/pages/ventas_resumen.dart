@@ -86,7 +86,7 @@ class _VentasResumidas extends State<VentasResumidas> {
                     .toList(),
               ),
             ),
-            const Expanded(child: ListaProductosDetalles()),
+            Expanded(child: ListaProductosDetalles()),
             ElevatedButton(
                 child: const Text("Eliminar filtros"),
                 onPressed: () {

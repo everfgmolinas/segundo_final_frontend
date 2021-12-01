@@ -86,7 +86,7 @@ class _VentasDetalles extends State<VentasDetalles> {
                     .toList(),
               ),
             ),
-            const Expanded(child: ListaProductosDetalles()),
+            Expanded(child: ListaProductosDetalles()),
             ElevatedButton(
                 child: const Text("Eliminar filtros"),
                 onPressed: () {
@@ -179,7 +179,8 @@ class GridItem extends StatelessWidget {
               child: ExpansionTile(
                 title: Text(venta.facturaNum),
                 subtitle:
-                    Text(venta.cliente.ruc! + "\n" + venta.cliente.nombre!),
+                    Text(venta.cliente.ruc! + " - " + venta.cliente.nombre! + "\n"
+                        + venta.fecha.day.toString() +"/" +venta.fecha.month.toString() +"/" + venta.fecha.year.toString() ),
                 children: [
                   ListaDetalles(detalles: venta.detalles),
                 ],
