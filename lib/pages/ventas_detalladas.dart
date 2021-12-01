@@ -19,11 +19,9 @@ class VentasDetalles extends StatefulWidget {
   const VentasDetalles({Key? key}) : super(key: key);
   @override
   _VentasDetalles createState() => _VentasDetalles();
-
 }
 
 class _VentasDetalles extends State<VentasDetalles> {
-
   @override
   void initState() {
     super.initState();
@@ -31,24 +29,24 @@ class _VentasDetalles extends State<VentasDetalles> {
   }
 
   String getFecha1() {
-    if( init == null){
+    if (init == null) {
       return 'Seleccione una fecha inicial';
-    }else {
-     return  '${init!.day}/${init!.month}/${init!.year}';
+    } else {
+      return '${init!.day}/${init!.month}/${init!.year}';
     }
   }
 
   String getFecha2() {
-    if( end == null){
+    if (end == null) {
       return 'Seleccione una fecha final';
-    }else {
-      return  '${end!.day}/${end!.month}/${end!.year}';
+    } else {
+      return '${end!.day}/${end!.month}/${end!.year}';
     }
   }
 
   DateTime? init;
   DateTime? end;
-  Producto? producto ;
+  Producto? producto;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +56,8 @@ class _VentasDetalles extends State<VentasDetalles> {
         body: Column(
           children: [
             ElevatedButton(
-                child: Text(getFecha1()),
-                onPressed: callDatePicker1,
+              child: Text(getFecha1()),
+              onPressed: callDatePicker1,
             ),
             ElevatedButton(
               child: Text(getFecha2()),
@@ -82,13 +80,13 @@ class _VentasDetalles extends State<VentasDetalles> {
                 },
                 items: ProductoService.productos
                     .map((producto) => DropdownMenuItem<Producto>(
-                  child: Text(producto.nombre!),
-                  value: producto,
-                ))
+                          child: Text(producto.nombre!),
+                          value: producto,
+                        ))
                     .toList(),
               ),
             ),
-            ListaProductosDetalles(),
+            const Expanded(child: ListaProductosDetalles()),
             ElevatedButton(
                 child: const Text("Eliminar filtros"),
                 onPressed: () {
@@ -96,27 +94,24 @@ class _VentasDetalles extends State<VentasDetalles> {
                   producto = null;
                   init = null;
                   end = null;
-                  setState(() {
-                  });
+                  setState(() {});
                 }),
             ElevatedButton(
                 child: Text("Filtrar por fecha"),
                 onPressed: init != null && end != null
                     ? () => {
-                  ventas = VentasService.filtrarFecha(init!, end!),
-                  producto = null,
-                  init = null,
-                  end = null,
-                  setState(() {
-                  }),
-                } : null
-            )
+                          ventas = VentasService.filtrarFecha(init!, end!),
+                          producto = null,
+                          init = null,
+                          end = null,
+                          setState(() {}),
+                        }
+                    : null)
           ],
-        )
-    );
+        ));
   }
 
-  void callDatePicker1() async{
+  void callDatePicker1() async {
     var date = await getDatePickerWidget();
     setState(() {
       init = date;
@@ -124,7 +119,7 @@ class _VentasDetalles extends State<VentasDetalles> {
     });
   }
 
-  void callDatePicker2() async{
+  void callDatePicker2() async {
     var date = await getDatePickerWidget();
     setState(() {
       end = date;
@@ -132,13 +127,12 @@ class _VentasDetalles extends State<VentasDetalles> {
     });
   }
 
-  Future <DateTime?> getDatePickerWidget() {
+  Future<DateTime?> getDatePickerWidget() {
     return showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2017),
-        lastDate: DateTime(2032)
-    );
+        lastDate: DateTime(2032));
   }
 }
 
@@ -150,11 +144,11 @@ class ListaProductosDetalles extends StatelessWidget {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: ventas!.length,
-      itemBuilder: (context, index) =>
-          GridItem(venta: ventas![index]),
+      itemBuilder: (context, index) => GridItem(venta: ventas![index]),
     );
   }
 }
+
 class ListaDetalles extends StatelessWidget {
   final List<DetalleVenta> detalles;
   const ListaDetalles({Key? key, required this.detalles}) : super(key: key);
@@ -184,7 +178,8 @@ class GridItem extends StatelessWidget {
             Card(
               child: ExpansionTile(
                 title: Text(venta.facturaNum),
-                subtitle: Text(venta.cliente.ruc! + "\n" + venta.cliente.nombre!),
+                subtitle:
+                    Text(venta.cliente.ruc! + "\n" + venta.cliente.nombre!),
                 children: [
                   ListaDetalles(detalles: venta.detalles),
                 ],
@@ -256,11 +251,11 @@ class GridDetalleItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           Text ("Codigo: " + detalle.producto.codigo.toString()),
-           Text ("Nombre: " + detalle.producto.nombre!),
-           Text ("Precio Unit.: " + detalle.producto.precio.toString()),
-           Text ("Cantidad: " + detalle.cantidad.toString()),
-           Text ("Total: " + detalle.totalDetalle.toString()),
+            Text("Codigo: " + detalle.producto.codigo.toString()),
+            Text("Nombre: " + detalle.producto.nombre!),
+            Text("Precio Unit.: " + detalle.producto.precio.toString()),
+            Text("Cantidad: " + detalle.cantidad.toString()),
+            Text("Total: " + detalle.totalDetalle.toString()),
           ],
         ),
       ),
