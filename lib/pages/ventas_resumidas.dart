@@ -182,7 +182,7 @@ class GridItem extends StatelessWidget {
                 subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("RUC: ${venta.cliente.ruc!}"),
+                      Text("Factura Nº: ${venta.facturaNum}"),
                       const SizedBox(
                         width: 20,
                       ),
