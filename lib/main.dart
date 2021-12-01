@@ -6,6 +6,7 @@ import 'package:segundo_final_frontend/pages/productos_page.dart';
 import 'package:segundo_final_frontend/pages/ventas_detalladas.dart';
 
 import 'pages/ventas_page.dart';
+import 'pages/ventas_resumidas.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         "/clientes": (context) => const ClientesPage(),
         "/ventas": (context) => const VentasPage(),
         "/detallesVenta": (context) => const VentasDetalles(),
+        "/resumenVenta": (context) => const VentasResumidas()
       },
     );
   }
