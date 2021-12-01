@@ -77,7 +77,10 @@ class VentasService {
   static List<Venta> filtrarFecha(DateTime fecha1, DateTime fecha2) {
     return ventas
         .where((venta) =>
-            venta.fecha.isAfter(fecha1) && venta.fecha.isBefore(fecha2))
+            (venta.fecha.isAfter(fecha1) ||
+                venta.fecha.difference(fecha1).inDays == 0) &&
+            (venta.fecha.isBefore(fecha2) ||
+                venta.fecha.difference(fecha2).inDays == 0))
         .toList();
   }
 }
